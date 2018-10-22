@@ -19,23 +19,52 @@ namespace Symfony\Component\Routing;
  */
 class Route implements \Serializable
 {
+    /**
+     * @var string
+     */
     private $path = '/';
-    private $host = '';
-    private $schemes = array();
-    private $methods = array();
-    private $defaults = array();
-    private $requirements = array();
-    private $options = array();
-    private $condition = '';
 
     /**
-     * @var CompiledRoute|null
+     * @var string
+     */
+    private $host = '';
+
+    /**
+     * @var string[]
+     */
+    private $schemes = array();
+
+    /**
+     * @var string[]
+     */
+    private $methods = array();
+
+    /**
+     * @var array
+     */
+    private $defaults = array();
+
+    /**
+     * @var array
+     */
+    private $requirements = array();
+
+    /**
+     * @var array
+     */
+    private $options = array();
+
+    /**
+     * @var null|CompiledRoute
      */
     private $compiled;
 
     /**
-     * Constructor.
-     *
+     * @var string
+     */
+    private $condition = '';
+
+    /**
      * Available options:
      *
      *  * compiler_class: A class name able to compile this route instance (RouteCompiler by default)
@@ -196,7 +225,7 @@ class Route implements \Serializable
      */
     public function hasScheme($scheme)
     {
-        return \in_array(strtolower($scheme), $this->schemes, true);
+        return in_array(strtolower($scheme), $this->schemes, true);
     }
 
     /**
@@ -537,7 +566,7 @@ class Route implements \Serializable
 
     private function sanitizeRequirement($key, $regex)
     {
-        if (!\is_string($regex)) {
+        if (!is_string($regex)) {
             throw new \InvalidArgumentException(sprintf('Routing requirement for "%s" must be a string.', $key));
         }
 
